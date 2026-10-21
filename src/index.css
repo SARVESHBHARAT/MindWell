@@ -1,0 +1,198 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* MindWell Design System - Mental Health & Wellness Theme */
+
+@layer base {
+  :root {
+    /* Core Background & Text */
+    --background: 210 20% 98%;
+    --foreground: 215 25% 27%;
+    
+    /* Card & Surface Colors */
+    --card: 0 0% 100%;
+    --card-foreground: 215 25% 27%;
+    
+    /* Popover Colors */
+    --popover: 0 0% 100%;
+    --popover-foreground: 215 25% 27%;
+    
+    /* Primary - Calming Teal */
+    --primary: 180 77% 32%;
+    --primary-foreground: 0 0% 100%;
+    --primary-light: 180 65% 45%;
+    --primary-glow: 180 77% 60%;
+    
+    /* Secondary - Soft Purple */
+    --secondary: 255 85% 95%;
+    --secondary-foreground: 255 77% 32%;
+    --secondary-accent: 255 77% 32%;
+    
+    /* Success - Mental Health Green */
+    --success: 120 60% 45%;
+    --success-foreground: 0 0% 100%;
+    --success-light: 120 40% 85%;
+    
+    /* Warning - Mindful Orange */
+    --warning: 38 92% 50%;
+    --warning-foreground: 0 0% 100%;
+    --warning-light: 38 70% 90%;
+    
+    /* Danger - Crisis Red */
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 100%;
+    
+    /* Neutral Tones */
+    --muted: 210 20% 96%;
+    --muted-foreground: 215 16% 47%;
+    --accent: 210 20% 96%;
+    --accent-foreground: 215 25% 27%;
+    
+    /* Border & Input */
+    --border: 210 20% 90%;
+    --input: 210 20% 96%;
+    --ring: 180 77% 32%;
+    
+    /* Wellness Gradients */
+    --gradient-wellness: linear-gradient(135deg, hsl(180 77% 32%), hsl(255 77% 32%));
+    --gradient-calm: linear-gradient(180deg, hsl(180 65% 95%), hsl(255 85% 95%));
+    --gradient-hero: linear-gradient(135deg, hsl(180 77% 32%) 0%, hsl(180 65% 45%) 50%, hsl(255 77% 32%) 100%);
+    --gradient-mood: linear-gradient(90deg, hsl(120 60% 45%), hsl(180 77% 32%), hsl(255 77% 32%));
+    
+    /* Shadows */
+    --shadow-wellness: 0 10px 30px -10px hsl(180 77% 32% / 0.2);
+    --shadow-card: 0 4px 20px -4px hsl(215 25% 27% / 0.1);
+    --shadow-glow: 0 0 40px hsl(180 77% 60% / 0.3);
+    
+    /* Animation */
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-bounce: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+
+    --radius: 0.75rem;
+
+    --sidebar-background: 0 0% 98%;
+
+    --sidebar-foreground: 240 5.3% 26.1%;
+
+    --sidebar-primary: 240 5.9% 10%;
+
+    --sidebar-primary-foreground: 0 0% 98%;
+
+    --sidebar-accent: 240 4.8% 95.9%;
+
+    --sidebar-accent-foreground: 240 5.9% 10%;
+
+    --sidebar-border: 220 13% 91%;
+
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  .dark {
+    /* Dark Theme for MindWell */
+    --background: 215 28% 17%;
+    --foreground: 210 20% 98%;
+    
+    --card: 215 28% 20%;
+    --card-foreground: 210 20% 98%;
+    
+    --popover: 215 28% 20%;
+    --popover-foreground: 210 20% 98%;
+    
+    --primary: 180 77% 40%;
+    --primary-foreground: 0 0% 100%;
+    --primary-light: 180 65% 50%;
+    --primary-glow: 180 77% 65%;
+    
+    --secondary: 255 25% 25%;
+    --secondary-foreground: 255 85% 90%;
+    --secondary-accent: 255 77% 40%;
+    
+    --success: 120 60% 50%;
+    --success-foreground: 0 0% 100%;
+    --success-light: 120 40% 30%;
+    
+    --warning: 38 92% 55%;
+    --warning-foreground: 0 0% 100%;
+    --warning-light: 38 70% 25%;
+    
+    --destructive: 0 72% 55%;
+    --destructive-foreground: 0 0% 100%;
+    
+    --muted: 215 28% 25%;
+    --muted-foreground: 215 16% 65%;
+    --accent: 215 28% 25%;
+    --accent-foreground: 210 20% 98%;
+    
+    --border: 215 28% 30%;
+    --input: 215 28% 25%;
+    --ring: 180 77% 40%;
+    
+    /* Dark Gradients */
+    --gradient-wellness: linear-gradient(135deg, hsl(180 77% 40%), hsl(255 77% 40%));
+    --gradient-calm: linear-gradient(180deg, hsl(180 65% 25%), hsl(255 25% 25%));
+    --gradient-hero: linear-gradient(135deg, hsl(180 77% 40%) 0%, hsl(180 65% 50%) 50%, hsl(255 77% 40%) 100%);
+    --gradient-mood: linear-gradient(90deg, hsl(120 60% 50%), hsl(180 77% 40%), hsl(255 77% 40%));
+    
+    /* Dark Shadows */
+    --shadow-wellness: 0 10px 30px -10px hsl(180 77% 40% / 0.3);
+    --shadow-card: 0 4px 20px -4px hsl(0 0% 0% / 0.2);
+    --shadow-glow: 0 0 40px hsl(180 77% 65% / 0.4);
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+/* MindWell Custom Utility Classes */
+@layer utilities {
+  .bg-gradient-wellness {
+    background: var(--gradient-wellness);
+  }
+  
+  .bg-gradient-calm {
+    background: var(--gradient-calm);
+  }
+  
+  .bg-gradient-hero {
+    background: var(--gradient-hero);
+  }
+  
+  .bg-gradient-mood {
+    background: var(--gradient-mood);
+  }
+  
+  .shadow-wellness {
+    box-shadow: var(--shadow-wellness);
+  }
+  
+  .shadow-card {
+    box-shadow: var(--shadow-card);
+  }
+  
+  .shadow-glow {
+    box-shadow: var(--shadow-glow);
+  }
+  
+  .transition-smooth {
+    transition: var(--transition-smooth);
+  }
+  
+  .transition-bounce {
+    transition: var(--transition-bounce);
+  }
+  
+  .text-wellness {
+    background: var(--gradient-wellness);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+}
