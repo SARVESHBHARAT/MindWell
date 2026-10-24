@@ -1,216 +1,341 @@
 # MindWell — Digital Mental Wellness Platform
 
-MindWell is a digital mental wellness platform developed around Smart India Hackathon 2025 Problem Statement SIH25092 for the Government of Jammu and Kashmir, focused on psychological support for students in higher education.
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-Render-blue?style=for-the-badge&logo=render)](https://mindwelll.onrender.com)
+[![GitHub Repository](https://img.shields.io/badge/GitHub-Repository-black?style=for-the-badge&logo=github)](https://github.com/SARVESHBHARAT/MindWell)
+[![Hosting](https://img.shields.io/badge/Hosting-Render%20Free%20Tier-2ea44f?style=for-the-badge)](https://mindwelll.onrender.com)
+[![License](https://img.shields.io/badge/Status-Prototype-orange?style=for-the-badge)]()
 
-> **Note:** This is a frontend prototype. All data is mock data stored in-browser; there is no backend, database, or authentication server. It is intended to demonstrate the product experience and UI, not to handle real patient data.
+MindWell is a student-centered digital mental health and wellness platform designed to provide accessible, stigma-free psychological support tools, validated clinical screenings, daily mood check-ins, and institutional analytics for higher education campuses.
 
-## Smart India Hackathon (SIH) 2025
+> **Important Architecture Notice:**  
+> MindWell is currently a **client-side Single Page Application (SPA)** and a **frontend prototype**. It does **not** have a backend server, database, user authentication system, or external AI API connection. All data is managed locally in the user's browser or supplied as mock demonstration data.
 
-This project was developed as a prototype implementation of **Smart India Hackathon 2025 Problem Statement SIH25092**:
+---
 
-- **Problem Statement ID:** SIH25092
-- **Problem statement:** Development of a Digital Mental Health and Psychological Support System for Students in Higher Education
-- **Organization:** Government of Jammu and Kashmir
-- **Event:** Smart India Hackathon 2025
+## Live Demo
 
-MindWell addresses the higher education student mental wellness need by providing accessible psychological support tools, clinical assessment screenings, and crisis resource connectivity within a single campus platform.
+The production build of MindWell is deployed and publicly accessible on Render:
 
-### Project relationship to the problem statement
+- **Live Deployment:** [https://mindwelll.onrender.com](https://mindwelll.onrender.com/)
+- **Hosting Platform:** Render (Static Site)
+- **Hosting Tier:** Free ($0/month)
+- **Production Branch:** `master`
 
-MindWell is a frontend prototype implementation inspired by the SIH 2025 problem statement. It demonstrates the core experience and UI patterns requested in the statement but does not include a government-operated backend, official database, or authenticated user system. This is a student development project addressing the stated problem domain.
+---
 
-## Key Features
+## Project Overview
 
-- **Landing page** — feature overview and entry points to each tool
-- **Dashboard** — daily mood check-in (1–10 scale), wellness score, streak, weekly goal, 7-day mood trend; check-ins persist in browser localStorage
-- **AI Support chat** — keyword-guided conversational support with client-side crisis-keyword detection and an actionable crisis-resources dialog (988 Suicide & Crisis Lifeline, Crisis Text Line, campus line)
-- **Clinical Assessments** — PHQ-9 depression and GAD-7 anxiety screeners with scoring, clinical interpretation bands, and next-step recommendations
-- **Wellness Tree** — gamified wellness journey with tree level, XP, streaks, activities, and locked/unlocked achievements
-- **Admin Dashboard** — institutional analytics: campus stats, risk alerts, weekly trends, department stats, and report/system-status UI
-- **Design system** — Tailwind CSS with shadcn-ui components, light/dark theme support, responsive layout
+College students face unprecedented academic, social, and personal stressors. MindWell was created to demonstrate a unified, approachable digital platform addressing student mental health needs in educational institutions.
+
+The platform provides:
+- A welcoming, stigma-reducing landing experience with rapid access to wellness tools.
+- Daily mood tracking and emotional self-reflection.
+- Clinically validated screening questionnaires (PHQ-9 for depression and GAD-7 for anxiety).
+- An empathetic conversational support interface with integrated crisis-resource detection.
+- A gamified "Wellness Tree" to encourage consistent self-care habits.
+- An institutional administrator dashboard showcasing how campus wellbeing trends and aggregate risk flags could be visualized.
+
+MindWell was developed as an educational prototype inspired by **Smart India Hackathon 2025 Problem Statement SIH25092** ("Development of a Digital Mental Health and Psychological Support System for Students in Higher Education" for the Government of Jammu and Kashmir).
+
+---
+
+## Current Architecture
+
+Understanding the architecture is critical when evaluating or extending MindWell:
+
+```
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                       MindWell Architecture (Prototype)                     │
+└─────────────────────────────────────────────────────────────────────────────┘
+                                      │
+                                      ▼
+                 ┌────────────────────────────────────────┐
+                 │       Browser / Client Runtime         │
+                 │   (React 18 + TypeScript + Vite SPA)   │
+                 └──────────────────┬─────────────────────┘
+                                    │
+    ┌───────────────────────────────┼──────────────────────────────┐
+    │                               │                              │
+    ▼                               ▼                              ▼
+┌────────────────────────┐  ┌────────────────────────┐  ┌─────────────────────┐
+│  Browser localStorage  │  │  Client Component      │  │  Mock Analytics &   │
+│  • Daily mood check-in │  │  State (React Hooks)   │  │  Demonstration Data │
+│    records             │  │  • PHQ-9 & GAD-7 flow  │  │  • Campus stats     │
+│    ("mindwell_checkins"│  │  • Heuristic chat flow │  │  • Risk alert table │
+│     key)               │  │  • Crisis modal dialog │  │  • Department stats │
+└────────────────────────┘  └────────────────────────┘  └─────────────────────┘
+                                    │
+                                    ▼
+       ┌─────────────────────────────────────────────────────────┐
+       │   Static Site Hosting on Render (Built from /dist)      │
+       │   • NO backend server (Node.js/Express/FastAPI)         │
+       │   • NO database (PostgreSQL/MongoDB/MySQL)              │
+       │   • NO external AI / LLM API integration                │
+       │   • NO user authentication or server-side sessions      │
+       └─────────────────────────────────────────────────────────┘
+```
+
+- **Client-Side Single Page Application (SPA):** The entire application is compiled into static HTML, JavaScript, and CSS via Vite and served as static files from Render.
+- **No Backend Server:** There is no server-side application running in the current repository. All application logic runs entirely in the user's web browser.
+- **No Database:** No persistent database is attached. Data does not sync across devices or users.
+- **Local Storage for Mood Check-Ins:** The daily mood check-in tool persists entries directly to the browser's `localStorage` under the key `mindwell_checkins`. Clearing browser storage resets this history.
+- **Client-Side Conversational Logic:** The support chat uses deterministic, client-side keyword heuristic matching. It does **not** make calls to an external AI service (such as OpenAI, Anthropic, or Gemini).
+- **Client-Side Crisis Detection:** Emergency keyword filtering ("suicide", "kill myself", "self-harm", etc.) runs purely in the client's browser, triggering a modal with standard crisis hotline telephone numbers.
+- **Mock Institutional Data:** The administrator dashboard displays hardcoded mock metrics, charts, and risk alerts designed for demonstration purposes only.
+- **No Role-Based Access Control (RBAC):** Because authentication is not yet implemented, the `/admin` view is open for demonstration review.
+
+---
+
+## Features
+
+The features documented below represent verified functionality implemented in the codebase:
+
+### 1. Landing Page (`/`)
+- Hero section introducing MindWell's mission and core pillars.
+- Interactive feature highlights linking directly to individual tools.
+- Statistics preview and call-to-action sections.
+- Navigation header with responsive mobile drawer navigation.
+
+### 2. Wellness Dashboard (`/dashboard`)
+- **Daily Mood Check-in:** Interactive 1–10 mood rating selector with dynamic icons (Frown, Meh, Smile).
+- **LocalStorage Persistence:** Submitting a check-in appends `{ mood, date }` to `localStorage` (`mindwell_checkins`) and triggers a toast notification.
+- **Mood Trend Chart:** Recharts visualizer depicting a 7-day mood history trend.
+- **Gamified Stats:** Visual indicators for current wellness score (75%), weekly check-in goal progress (4/5), and active streak (12 days).
+
+### 3. Conversational Support Chat (`/chat`)
+- **Conversational Interface:** Responsive messaging UI with typing indicators and auto-scrolling message history.
+- **Client-Side Heuristic Guidance:** Predefined, empathetic response patterns for topics including anxiety, stress, sadness/depression, and sleep issues.
+- **Crisis Keyword Detection:** Client-side scanner detecting terms related to self-harm or suicide.
+- **Crisis Resources Modal:** When an emergency keyword is detected, an `AlertDialog` provides immediate helpline contact info:
+  - **988 Suicide & Crisis Lifeline:** Call or text 988 (Available 24/7)
+  - **Crisis Text Line:** Text HOME to 741741
+  - **Campus Counseling Services:** Direct contact guidance
+
+### 4. Clinical Assessments (`/assessments`)
+- **Standardized Screeners:**
+  - **PHQ-9 (Patient Health Questionnaire-9):** 9-item depression screener.
+  - **GAD-7 (Generalized Anxiety Disorder-7):** 7-item anxiety screener.
+- **Validated Flow:** Four-point Likert scale (0–3: *Not at all*, *Several days*, *More than half the days*, *Nearly every day*). The "Next" button is disabled until an answer is selected.
+- **Scoring & Interpretation:** Automated score calculation with clinical severity bands (*Minimal*, *Mild*, *Moderate*, *Moderately Severe*, *Severe*) and recommended next steps.
+- **Assessment History:** Mock screening timeline showcasing historical scores and completion dates.
+
+### 5. Gamified Wellness Tree (`/wellness`)
+- **Visual Growth Indicator:** Visual tree representation with leaf density tied to user wellness level (Level 5, 2,450 / 3,000 XP).
+- **Achievements System:** Unlocked badges (*First Steps*, *Week Warrior*, *Self Aware*) and in-progress goals (*Consistency King*, *AI Buddy*).
+- **Activity Breakdown:** Breakdown of wellness tasks contributing to streak and XP progression.
+
+### 6. Institutional Administrative Dashboard (`/admin`)
+- **Campus Analytics (Mock):** Total student users (2,547), active users (1,823), engagement rate (78%), and open risk alerts (12).
+- **Risk Alert Table:** Triage table highlighting simulated student risk levels (High, Medium, Low) and flagged triggers.
+- **Weekly Wellbeing Trends:** Multi-line trend chart comparing depression, anxiety, and wellness scores over four weeks.
+- **Departmental Breakdown:** Wellbeing index and active users across academic departments (Computer Science, Engineering, Psychology, Business, Arts & Sciences).
+- **Export UI Placeholders:** Interface buttons demonstrating report export capabilities.
+
+---
 
 ## Technology Stack
 
-- **Frontend framework:** Vite 5 + React 18 + TypeScript
-- **UI components:** Tailwind CSS + shadcn-ui (Radix UI primitives)
-- **Routing:** React Router 6
-- **State management:** TanStack Query 5
-- **Forms:** React Hook Form + Zod
-- **Charting:** Recharts
-- **Notifications:** Sonner
-- **Date handling:** date-fns
-- **Icons:** lucide-react
-- **Testing:** Vitest + React Testing Library + jsdom
-- **Build tooling:** Vite, PostCSS, Autoprefixer
+The project is built on the following technologies, confirmed by `package.json`:
 
-## Architecture and Project Structure
+| Layer | Technology | Version | Purpose |
+|---|---|---|---|
+| **Core Framework** | React | `^18.3.1` | Declarative component UI library |
+| **Language** | TypeScript | `^5.8.3` | Static typing and type safety |
+| **Build Tool** | Vite | `^5.4.19` | Fast HMR dev server and production bundler |
+| **Styling** | Tailwind CSS | `^3.4.17` | Utility-first responsive CSS styling |
+| **UI Components** | shadcn/ui & Radix UI | Various `^1.x` - `^2.x` | Accessible, unstyled UI primitives |
+| **Routing** | React Router | `^6.30.1` | Client-side declarative routing (`BrowserRouter`) |
+| **State / Fetching** | TanStack React Query | `^5.83.0` | Async state management |
+| **Forms & Validation** | React Hook Form + Zod | `^7.61.1` / `^3.25.76` | Form management and schema validation |
+| **Data Visualization**| Recharts | `^2.15.4` | Responsive SVG charts and trends |
+| **Notifications** | Sonner | `^1.7.4` | Toast notification system |
+| **Icons** | Lucide React | `^0.462.0` | Modern SVG icons |
+| **Date Utilities** | date-fns | `^3.6.0` | Lightweight date manipulation |
+| **Testing** | Vitest + React Testing Library | `^2.1.9` / `^16.3.3` | Unit and component testing suite |
 
-`
+---
+
+## Directory Structure
+
+```
 mindwell/
-├── public/             # Static assets (index.html, favicon, SVGs)
+├── public/                 # Static assets (favicon, SVG placeholders, robots.txt)
 ├── src/
-│   ├── main.tsx        # Application entry point
-│   ├── App.tsx         # Root component with routing
-│   ├── index.css       # Global Tailwind directives and base styles
-│   ├── App.css         # Custom component styles
+│   ├── main.tsx            # Application entry point (mounts React DOM)
+│   ├── App.tsx             # Root component with routing and providers
+│   ├── index.css           # Global Tailwind directives and design tokens
+│   ├── App.css             # Supplementary component styles
 │   ├── components/
-│   │   └── ui/         # shadcn-ui components (alert-dialog, button, input, etc.)
-│   ├── hooks/          # Custom hooks (use-mobile, use-toast)
+│   │   ├── Navigation.tsx   # Top navigation bar and mobile drawer
+│   │   └── ui/             # shadcn/ui components (button, card, dialog, etc.)
+│   ├── hooks/              # Custom React hooks (use-mobile, use-toast)
 │   ├── lib/
-│   │   └── utils.ts    # Utility functions
-│   ├── pages/          # Page-level components
-│   │   ├── Index.tsx           # Landing page
-│   │   ├── Dashboard.tsx       # Mood check-in and wellness score
-│   │   ├── Chat.tsx            # AI support chat with crisis resources
-│   │   ├── Assessments.tsx     # PHQ-9/GAD-7 clinical screeners
-│   │   ├── WellnessTree.tsx    # Gamified wellness journey
-│   │   ├── AdminDashboard.tsx  # Institutional analytics
-│   │   └── NotFound.tsx        # 404 page
-│   └── test/           # Test configuration
-│       └── setup.ts          # jsdom stubs (scrollIntoView, etc.)
-├── index.html          # HTML template with Vite and Tailwind configs
-├── tailwind.config.ts  # Tailwind CSS configuration
-├── postcss.config.js   # PostCSS configuration
-├── tsconfig.app.json   # TypeScript config for application code
-├── tsconfig.json       # Root TypeScript config
-├── tsconfig.node.json  # TypeScript config for Node scripts
-├── vite.config.ts      # Vite configuration with React plugin
-├── vitest.config.ts    # Vitest test configuration
-├── package.json        # Dependencies and scripts
-├── .env.example        # Placeholder environment variables
-└── .gitignore         # Git ignore rules
-`
+│   │   └── utils.ts        # Helper functions (cn class merger)
+│   ├── pages/              # Page-level components
+│   │   ├── Index.tsx       # Landing page
+│   │   ├── Dashboard.tsx   # Mood check-in and wellness metrics
+│   │   ├── Chat.tsx        # Conversational support and crisis detection
+│   │   ├── Assessments.tsx # PHQ-9 & GAD-7 screeners
+│   │   ├── WellnessTree.tsx# Gamified wellness journey
+│   │   ├── AdminDashboard.tsx # Institutional analytics (mock data)
+│   │   └── NotFound.tsx    # 404 fallback page
+│   └── test/               # Vitest environment setup
+│       └── setup.ts        # jsdom stubs and DOM matchers
+├── index.html              # HTML template
+├── tailwind.config.ts      # Tailwind CSS configuration and theme tokens
+├── postcss.config.js       # PostCSS configuration
+├── tsconfig.json           # Root TypeScript configuration
+├── tsconfig.app.json       # Application TypeScript configuration
+├── tsconfig.node.json      # Vite Node configuration
+├── vite.config.ts          # Vite build and plugin configuration
+├── vitest.config.ts        # Vitest test runner configuration
+├── package.json            # Project dependencies and npm scripts
+├── package-lock.json       # Exact npm dependency lockfile
+├── .env.example            # Environment variable documentation (optional)
+└── .gitignore              # Files excluded from git
+```
 
-## Installation and Setup
+---
+
+## Local Development
+
+Follow these steps to set up and run MindWell locally:
 
 ### Prerequisites
+- **Node.js:** v18.0.0 or higher (tested on Node v22.x)
+- **npm:** v10.0.0 or higher (tested on npm 10.9.x)
 
-- Node.js 18 or newer (tested with Node v22.20.0)
-- npm 10 or newer (tested with npm 10.9.3)
-
-### 1. Clone the repository
-
-`sh
+### 1. Clone the Repository
+```bash
 git clone https://github.com/SARVESHBHARAT/MindWell.git
-cd mindwell
-`
+cd MindWell
+```
 
-### 2. Install dependencies
+### 2. Install Dependencies
+```bash
+npm install
+```
 
-`sh
-npm i
-`
-
-### 3. Environment variable setup
-
-MindWell requires **no environment variables** to run as a frontend-only prototype. If you integrate a backend API, copy the example:
-
-`sh
+### 3. Environment Variables (Optional)
+MindWell runs as a frontend prototype and requires **no environment variables** to run locally. If you integrate a backend API in the future, you can copy `.env.example`:
+```bash
 cp .env.example .env
-`
+```
 
-Optionally fill in VITE_API_BASE_URL for future backend integration. Real .env files are excluded from Git via .gitignore.
-
-### 4. Start the development server
-
-`sh
+### 4. Start the Development Server
+```bash
 npm run dev
-`
+```
+Open your browser and navigate to `http://localhost:5173`.
 
-The app runs on http://localhost:5173 by default (Vite). To use a different port, adjust ite.config.ts.
-
-### 5. Production build
-
-`sh
-npm run build
-`
-
-Outputs to dist/ (approximately 396 KB JS + 68 KB CSS). Deploy the contents of dist/ to any static host (Vercel, Netlify, GitHub Pages).
-
-### 6. Preview the production build
-
-`sh
-npm run preview
-`
-
-### 7. Run the test suite
-
-`sh
+### 5. Run the Automated Tests
+```bash
 npm test
-`
+```
+Runs the Vitest suite covering mood check-in persistence, assessment navigation and scoring, and crisis keyword detection.
 
-All 4 tests across 3 test files pass. Test configuration includes Vitest, React Testing Library, and jsdom.
-
-### 8. TypeScript type checking
-
-`sh
+### 6. Run TypeScript Type Checking
+```bash
 npx tsc --noEmit
-`
+```
 
-Passes cleanly with no errors.
-
-### 9. Run ESLint
-
-`sh
+### 7. Run Code Linting
+```bash
 npm run lint
-`
-
-## Testing and Quality Assurance
-
-- **TypeScript checking:** Passed — 
-px tsc --noEmit clean.
-- **Production build:** Passed — 
-pm run build produces 396 KB JS + 68 KB CSS.
-- **Automated tests:** 4 tests passing across 3 test files:
-  - Dashboard.test.tsx — validates mood check-in to localStorage + toast confirmation
-  - Assessments.test.tsx — validates Next-disabled-until-answered + full PHQ-9 completion with score interpretation
-  - Chat.test.tsx — validates emergency keyword detection (suicide) + crisis resources render + AlertDialog open
-
-## Security and Privacy
-
-- **Frontend-only prototype:** All data resides in browser localStorage and resets when cleared. No data is transmitted to any server, stored in a database, or shared between users.
-- **No real crisis response:** Crisis-keyword detection is client-side pattern matching. The crisis-resources dialog shows helpline information only. It is not a substitute for professional emergency services. If you or someone you know is in crisis, call emergency services (e.g. 911 in the US) or a suicide/crisis helpline immediately.
-- **No authentication or backend:** There is no user authentication, no user accounts, and no persistent storage. Each browser session is independent.
-- **Educational/demo purpose:** This application is a prototype demonstration tool, not a clinical mental health service. It does not provide medical diagnosis, treatment, or crisis intervention.
-
-## Known Limitations
-
-- **Frontend-only prototype:** no backend, database, or authentication. All data resets when browser storage is cleared; nothing is shared between users or devices.
-- **No real crisis response:** crisis-keyword detection is client-side keyword matching and the crisis-resources dialog shows helpline information only. It is not a substitute for professional emergency services.
-- **//admin is not role-protected:** anyone can access the admin dashboard in this demo.
-- **External links/assets:** index.html references Open Graph imagery hosted on lovable.dev; replace with your own assets before public deployment.
-- **No mobile optimisation beyond responsive layout:** the UI adjusts to screen size but has not been tested on actual mobile devices.
-
-## Contribution and Licensing
-
-No license file exists in the repository. This is a personal student project developed for Smart India Hackathon 2025. Licensing decisions should be made based on intended use and distribution.
-
-Pull requests, bug reports, and suggestions are welcome. Please ensure contributions align with the project's educational prototype nature.
-
-## Project Attribution
-
-- **Project name:** MindWell
-- **Developer:** Personal student project
-- **Context:** Smart India Hackathon 2025, Problem Statement SIH25092
-- **Target domain:** Higher education student mental wellness
+```
 
 ---
 
-## Development Commands Summary
+## Production Build
 
-| Command | Purpose |
+To generate the optimized production bundle:
+
+```bash
+npm run build
+```
+
+Vite compiles the application and outputs static assets into the `dist/` directory.
+
+To test the compiled production build locally before deployment:
+```bash
+npm run preview
+```
+
+---
+
+## Render Deployment
+
+MindWell is deployed as a **Static Site** on [Render](https://render.com).
+
+### Deployment Configuration
+
+| Setting | Value |
 |---|---|
-| 
-pm run dev | Start dev server with hot reloading |
-| 
-pm run build | Production build (outputs to dist/) |
-| 
-pm run preview | Preview the production build locally |
-| 
-pm run lint | Run ESLint |
-| 
-pm test | Run the test suite once (Vitest) |
+| **Hosting Platform** | Render |
+| **Service Type** | Static Site |
+| **Plan** | Free ($0/month) |
+| **Repository** | `https://github.com/SARVESHBHARAT/MindWell` |
+| **Production Branch** | `master` |
+| **Build Command** | `npm install && npm run build` |
+| **Publish Directory** | `dist` |
+| **Live URL** | [https://mindwelll.onrender.com](https://mindwelll.onrender.com/) |
+
+### Client-Side SPA Routing Note (Render Rewrites)
+MindWell uses `react-router-dom` with `BrowserRouter` for client-side routing. On static hosts like Render, navigating directly to subroutes (such as `https://mindwelll.onrender.com/dashboard` or `https://mindwelll.onrender.com/assessments`) or reloading the page on a subroute may cause Render to look for a physical file at that path and return a 404 error unless a rewrite rule is in place.
+
+To prevent 404 errors on direct subroute navigation, ensure a rewrite rule is configured in the **Render Dashboard > Static Site > Settings > Redirects/Rewrites**:
+
+```
+Source:      /*
+Destination: /index.html
+Action:      Rewrite
+```
+
+*(Note: Verify this rule in your Render service dashboard if subroute reloads return a 404).*
 
 ---
 
-**Repository:** https://github.com/SARVESHBHARAT/MindWell
+## Limitations and Future Improvements
+
+MindWell currently serves as a high-fidelity frontend proof of concept. The table below outlines current prototype boundaries and the roadmap for full-stack production evolution:
+
+| Area | Current Prototype Implementation | Planned Production Improvement |
+|---|---|---|
+| **Backend** | No backend server; client-side execution only | Dedicated REST / GraphQL backend (Node.js, Express, FastAPI, or NestJS) |
+| **Database** | Browser `localStorage` (mood check-ins only) | Persistent relational/document database (PostgreSQL or MongoDB) |
+| **Authentication** | Open access; `/admin` is publicly accessible | Secure Campus SSO (OAuth 2.0 / SAML / JWT) with Role-Based Access Control (RBAC) |
+| **Conversational Support** | Client-side keyword-based heuristics | Secure, HIPAA/FERPA-aligned LLM API with clinical safety guardrails |
+| **Crisis Intervention** | Static crisis hotline modal on keyword detection | Real-time counselor escalation, crisis protocol triage, and live chat routing |
+| **Institutional Analytics** | Hardcoded mock data and static graphs | Real-time aggregated and anonymized telemetry from verified student profiles |
+| **Clinical Assessments** | Results calculated and displayed in component state | Encrypted assessment histories, clinical trend tracking, and counselor sharing |
+
+---
+
+## Smart India Hackathon (SIH 2025) Details
+
+- **Problem Statement ID:** SIH25092
+- **Problem Statement:** Development of a Digital Mental Health and Psychological Support System for Students in Higher Education
+- **Organization:** Government of Jammu and Kashmir
+- **Event:** Smart India Hackathon 2025
+- **Role:** Independent student prototype exploring modern UI/UX design, accessible mental wellness tools, and campus analytics workflows.
+
+---
+
+## Disclaimer
+
+> [!WARNING]
+> **Not a Substitute for Professional Medical Advice or Emergency Care**  
+> MindWell is a software prototype created for educational and demonstration purposes. It is **not** a licensed medical device, clinical diagnostic tool, or crisis response system. The assessments (PHQ-9 and GAD-7) and automated conversational replies are provided solely for informational and demonstration purposes and should not be used as clinical diagnoses or treatment plans.
+>
+> If you or someone you know is in immediate danger, having thoughts of self-harm, or experiencing a mental health emergency:
+> - **In the US / Canada:** Call or text **988** to reach the Suicide & Crisis Lifeline, or text **HOME to 741741** to connect with the Crisis Text Line.
+> - **In India:** Call **112** (Emergency Services), **14416** (Tele-MANAS National Mental Health Helpline), or **1800-599-0019** (KIRAN Helpline).
+> - **International:** Contact your local emergency services or campus psychological center immediately.
+
+---
+
+## License & Attribution
+
+- **Project:** MindWell
+- **Repository:** [https://github.com/SARVESHBHARAT/MindWell](https://github.com/SARVESHBHARAT/MindWell)
+- **Live Deployment:** [https://mindwelll.onrender.com](https://mindwelll.onrender.com/)
